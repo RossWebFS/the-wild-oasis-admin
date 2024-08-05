@@ -1,5 +1,7 @@
+import GlobalStyles from "./styles/GlobalStyles";
+
 const App = () => {
-  return <h1>The Wild Oasis Setup</h1>;
+  return <GlobalStyles />;
 };
 
 export default App;
