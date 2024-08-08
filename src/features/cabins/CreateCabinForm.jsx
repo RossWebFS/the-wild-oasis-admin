@@ -28,12 +28,10 @@ const CreateCabinForm = () => {
   });
 
   const onSubmit = (data) => {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   };
 
-  const onError = (errors) => {
-    console.log(errors);
-  };
+  const onError = (errors) => {};
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -83,7 +81,7 @@ const CreateCabinForm = () => {
           {...register("discount", {
             required: "This field is required",
             validate: (value) =>
-              getValues().regularPrice >= value
+              getValues().regularPrice <= value
                 ? value >= 0
                   ? true
                   : "Discount should be bigger than 0"
@@ -109,7 +107,15 @@ const CreateCabinForm = () => {
       </FormRow>
 
       <FormRow label="Cabin photo">
-        <FileInput id="image" accept="image/*" disabled={isCreating} />
+        <FileInput
+          id="image"
+          accept="image/*"
+          type="file"
+          disabled={isCreating}
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>
