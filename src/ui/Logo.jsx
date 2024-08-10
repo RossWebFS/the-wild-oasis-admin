@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function Logo() {
+const Logo = () => {
   return (
     <StyledLogo>
       <Img src="/logo-light.png" alt="Logo" />

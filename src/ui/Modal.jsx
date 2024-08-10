@@ -5,6 +5,51 @@ import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
+const ModalContext = createContext(null);
+
+const Modal = ({ children }) => {
+  const [openName, setOpenName] = useState("");
+
+  const open = setOpenName;
+  const close = () => setOpenName("");
+
+  return (
+    <ModalContext.Provider value={{ openName, close, open }}>
+      {children}
+    </ModalContext.Provider>
+  );
+};
+
+const Open = ({ children, opens: opensWindowName }) => {
+  const { open } = useContext(ModalContext);
+
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+};
+
+const Window = ({ children, name }) => {
+  const { openName, close } = useContext(ModalContext);
+
+  const windowRef = useOutsideClick(close);
+
+  if (name !== openName) return null;
+
+  return createPortal(
+    <Overlay>
+      <StyledModal ref={windowRef}>
+        <Button onClick={close}>
+          <HiXMark />
+        </Button>
+
+        {cloneElement(children, { onCloseModal: close })}
+      </StyledModal>
+    </Overlay>,
+    document.body
+  );
+};
+
+Modal.Open = Open;
+Modal.Window = Window;
+
 const StyledModal = styled.div`
   position: fixed;
   top: 50%;
@@ -53,50 +98,5 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
-
-const ModalContext = createContext(null);
-
-const Modal = ({ children }) => {
-  const [openName, setOpenName] = useState("");
-
-  const open = setOpenName;
-  const close = () => setOpenName("");
-
-  return (
-    <ModalContext.Provider value={{ openName, close, open }}>
-      {children}
-    </ModalContext.Provider>
-  );
-};
-
-const Open = ({ children, opens: opensWindowName }) => {
-  const { open } = useContext(ModalContext);
-
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
-};
-
-const Window = ({ children, name }) => {
-  const { openName, close } = useContext(ModalContext);
-
-  const windowRef = useOutsideClick(close);
-
-  if (name !== openName) return null;
-
-  return createPortal(
-    <Overlay>
-      <StyledModal ref={windowRef}>
-        <Button onClick={close}>
-          <HiXMark />
-        </Button>
-
-        {cloneElement(children, { onCloseModal: close })}
-      </StyledModal>
-    </Overlay>,
-    document.body
-  );
-};
-
-Modal.Open = Open;
-Modal.Window = Window;
 
 export default Modal;
