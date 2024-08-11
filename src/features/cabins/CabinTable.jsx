@@ -5,6 +5,7 @@ import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
+import Empty from "../../ui/Empty";
 
 const CabinTable = () => {
   const [searchParams] = useSearchParams();
@@ -25,6 +26,8 @@ const CabinTable = () => {
   const sortedCabins = filteredCabins?.sort(
     (a, b) => (a[field] - b[field]) * modifier
   );
+
+  if (!cabins.length) return <Empty resource="cabins" />;
 
   if (isLoading) return <Spinner />;
 
