@@ -27,7 +27,7 @@ const CabinTable = () => {
     (a, b) => (a[field] - b[field]) * modifier
   );
 
-  if (!cabins.length) return <Empty resource="cabins" />;
+  if (!cabins?.length) return <Empty resource="cabins" />;
 
   if (isLoading) return <Spinner />;
 
