@@ -1,5 +1,18 @@
+import BookingTable from "../features/bookings/BookingTable";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+
 const Bookings = () => {
-  return <div>Bookings</div>;
+  return (
+    <>
+      <Row type="horizontal">
+        <Heading as="h1">All bookings</Heading>
+        <p>test</p>
+      </Row>
+
+      <BookingTable />
+    </>
+  );
 };
 
 export default Bookings;
