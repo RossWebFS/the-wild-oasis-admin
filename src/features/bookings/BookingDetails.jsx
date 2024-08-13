@@ -7,15 +7,17 @@ import Tag from "../../ui/Tag";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
-
-const HeadingGroup = styled.div`
-  display: flex;
-  gap: 2.4rem;
-  align-items: center;
-`;
+import Spinner from "../../ui/Spinner";
+import { useBooking } from "./useBooking";
+import { useMoveBack } from "../../hooks/useMoveBack";
 
 const BookingDetails = () => {
-  const status = "checked-in";
+  const { booking, isLoading } = useBooking();
+  const moveBack = useMoveBack();
+
+  if (isLoading) return <Spinner />;
+
+  const {status, id: bookingId} = booking;
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -27,19 +29,25 @@ const BookingDetails = () => {
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #X</Heading>
+          <Heading as="h1">Booking #{bookingId}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
-        <ButtonText>&larr; Back</ButtonText>
+        <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
-      <BookingDataBox />
+      <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        <Button variation="secondary">Back</Button>
+        <Button onClick={moveBack} variation="secondary">Back</Button>
       </ButtonGroup>
     </>
   );
 };
+
+const HeadingGroup = styled.div`
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+`;
 
 export default BookingDetails;
