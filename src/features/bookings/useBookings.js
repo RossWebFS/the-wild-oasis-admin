@@ -19,7 +19,7 @@ export const useBookings = () => {
   const currentPage = +searchParams.get("page") || 1;
 
   const {
-    data: { data: bookings, count } = {},
+    data: { data: bookings = [], count } = {},
     isLoading,
     error,
   } = useQuery({

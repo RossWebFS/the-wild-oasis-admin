@@ -6,10 +6,11 @@ import Table from "../../ui/Table";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
 
 const CabinTable = () => {
   const [searchParams] = useSearchParams();
-  const { cabins, isLoading } = useCabins();
+  const { cabins, isLoading, count } = useCabins();
 
   const filterValue = searchParams.get("discount") || "all";
 
@@ -27,9 +28,9 @@ const CabinTable = () => {
     (a, b) => (a[field] - b[field]) * modifier
   );
 
-  if (!cabins?.length) return <Empty resource="cabins" />;
-
   if (isLoading) return <Spinner />;
+  
+  if (!cabins.length) return <Empty resource="cabins" />;
 
   return (
     <Menus>
@@ -47,6 +48,9 @@ const CabinTable = () => {
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
+      <Table.Footer>
+        <Pagination count={count} />
+      </Table.Footer>
     </Menus>
   );
 };
