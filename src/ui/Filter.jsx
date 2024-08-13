@@ -7,6 +7,9 @@ const Filter = ({ filterField, options }) => {
   const currentFilter = searchParams.get(filterField) || options[0]?.value;
 
   const handleClick = (value) => {
+    const isPage = !!searchParams.get("page");
+    isPage && searchParams.set("page", 1);
+
     searchParams.set(filterField, value);
     setSearchParams(searchParams);
   };
