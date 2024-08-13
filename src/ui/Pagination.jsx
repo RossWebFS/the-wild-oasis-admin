@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from "../data/constants";
 
 const Pagination = ({ count }) => {
   const [searchParams, setSearchParams] = useSearchParams();
