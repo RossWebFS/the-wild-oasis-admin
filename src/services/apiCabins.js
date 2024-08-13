@@ -1,6 +1,5 @@
+import { PAGE_SIZE } from "../data/constants";
 import supabase, { supabaseUrl } from "./supabase";
-
-const PAGE_SIZE = 10;
 
 export const getCabins = async (currentPage) => {
   let query = supabase.from("cabins").select("*", { count: "exact" });

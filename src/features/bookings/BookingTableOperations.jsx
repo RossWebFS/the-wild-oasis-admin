@@ -1,3 +1,7 @@
+import {
+  filterBookingOperations,
+  sortBookingOperations,
+} from "../../data/constants";
 import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
@@ -5,28 +9,9 @@ import TableOperations from "../../ui/TableOperations";
 const BookingTableOperations = () => {
   return (
     <TableOperations>
-      <Filter
-        filterField="status"
-        options={[
-          { value: "all", label: "All" },
-          { value: "checked-out", label: "Checked out" },
-          { value: "checked-in", label: "Checked in" },
-          { value: "unconfirmed", label: "Unconfirmed" },
-        ]}
-      />
+      <Filter filterField="status" options={filterBookingOperations} />
 
-      <SortBy
-        sortField="sortBy"
-        options={[
-          { value: "startDate-desc", label: "Sort by date (recent first)" },
-          { value: "startDate-asc", label: "Sort by date (earlier first)" },
-          {
-            value: "totalPrice-desc",
-            label: "Sort by amount (high first)",
-          },
-          { value: "totalPrice-asc", label: "Sort by amount (low first)" },
-        ]}
-      />
+      <SortBy sortField="sortBy" options={sortBookingOperations} />
     </TableOperations>
   );
 };
