@@ -9,12 +9,16 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useBooking } from "./useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useCheckOut } from "../check-in-out/useCheckOut";
+import { useDeleteBooking } from "./useDeleteBooking";
 
 const BookingDetails = () => {
   const { booking, isLoading } = useBooking();
+  const { deleteBooking, isDeleting } = useDeleteBooking();
   const { checkOut, isCheckingOut } = useCheckOut();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
@@ -53,6 +57,24 @@ const BookingDetails = () => {
             Check out
           </Button>
         )}
+
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button variation="danger">Delete booking</Button>
+          </Modal.Open>
+
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName="booking"
+              disabled={isDeleting}
+              onConfirm={() =>
+                deleteBooking(bookingId, {
+                  onSuccess: () => navigate(-1),
+                })
+              }
+            />
+          </Modal.Window>
+        </Modal>
 
         <Button onClick={moveBack} variation="secondary">
           Back
