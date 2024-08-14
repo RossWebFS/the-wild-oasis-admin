@@ -11,9 +11,11 @@ import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
 import { useBooking } from "./useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
+import { useCheckOut } from "../check-in-out/useCheckOut";
 
 const BookingDetails = () => {
   const { booking, isLoading } = useBooking();
+  const { checkOut, isCheckingOut } = useCheckOut();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
@@ -43,6 +45,12 @@ const BookingDetails = () => {
         {status === "unconfirmed" && (
           <Button onClick={() => navigate(`/check-in/${bookingId}`)}>
             Check in
+          </Button>
+        )}
+
+        {status === "checked-in" && (
+          <Button onClick={() => checkOut(bookingId)} disable={isCheckingOut}>
+            Check out
           </Button>
         )}
 
