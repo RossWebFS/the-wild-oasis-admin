@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import BookingDataBox from "./BookingDataBox";
@@ -14,10 +15,11 @@ import { useMoveBack } from "../../hooks/useMoveBack";
 const BookingDetails = () => {
   const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
 
-  const {status, id: bookingId} = booking;
+  const { status, id: bookingId } = booking;
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -38,7 +40,15 @@ const BookingDetails = () => {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        <Button onClick={moveBack} variation="secondary">Back</Button>
+        {status === "unconfirmed" && (
+          <Button onClick={() => navigate(`/check-in/${bookingId}`)}>
+            Check in
+          </Button>
+        )}
+
+        <Button onClick={moveBack} variation="secondary">
+          Back
+        </Button>
       </ButtonGroup>
     </>
   );
