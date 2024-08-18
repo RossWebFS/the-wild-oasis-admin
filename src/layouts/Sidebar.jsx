@@ -2,15 +2,12 @@ import styled from "styled-components";
 
 import Logo from "../ui/Logo";
 import MainNav from "../ui/MainNav";
-import Uploader from "../data/Uploader";
 
 const Sidebar = () => {
   return (
     <StyledSidebar>
       <Logo />
       <MainNav />
-
-      <Uploader />
     </StyledSidebar>
   );
 };
