@@ -15,6 +15,7 @@ import { useBooking } from "./useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useCheckOut } from "../check-in-out/useCheckOut";
 import { useDeleteBooking } from "./useDeleteBooking";
+import Empty from "../../ui/Empty";
 
 const BookingDetails = () => {
   const { booking, isLoading } = useBooking();
@@ -24,6 +25,8 @@ const BookingDetails = () => {
   const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
+
+  if (!booking) return <Empty resource="booking" />;
 
   const { status, id: bookingId } = booking;
 
