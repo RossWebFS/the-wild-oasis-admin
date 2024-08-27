@@ -44,7 +44,7 @@ The project was developed using the following technologies:
 To clone this project locally, run following command:
 
 ```javascript
-    git clone https://github.com/RossWebFS/the-wild-oasis.git
+    git clone https://github.com/RossWebFS/the-wild-oasis-admin.git
     cd the-wild-oasis
 ```
 
@@ -81,7 +81,7 @@ To build project for production use this command:
         - hooks - for custom reusable hooks
         - layouts - for base application layout parts (header, footer, sidebar, etc.)
         - pages - for project pages
-        - services - for interactштп with the server part
+        - services - for interact with the server part
         - styles - for keeping global styles
         - ui - for reusable small components
         - utils - for reusable functions
